@@ -15,11 +15,10 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: 500,
     backgroundColor: "#252525",
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "center",
   },
   title: {
     color: "#010001",

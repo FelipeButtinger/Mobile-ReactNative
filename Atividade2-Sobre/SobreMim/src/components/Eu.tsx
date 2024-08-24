@@ -1,10 +1,22 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  Button,
+  TextInput,
+} from "react-native";
 
 const EuDesc = () => {
   return (
-    <View style={styles.footerContainer}>
-      <img src="../assets/SelfieFelipeGarcia.png" />
+    <View style={styles.Container}>
+      <Image
+        height={300}
+        source={require("../../assets/SelfieFelipeGarcia.png")}
+      />
+
       <h1>Meu nome é Felipe Garcia Buttinger</h1>
 
       <h1>Tenho 17 anos e curso o TDS</h1>
@@ -13,11 +25,13 @@ const EuDesc = () => {
 };
 
 const styles = StyleSheet.create({
-  footerContainer: {
+  Container: {
     padding: 5,
     borderColor: "#f1f1f1",
     backgroundColor: "#CDEAC0",
-    width: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
