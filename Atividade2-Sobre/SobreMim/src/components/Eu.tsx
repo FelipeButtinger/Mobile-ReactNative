@@ -5,34 +5,46 @@ import {
   Text,
   Image,
   View,
-  Button,
-  TextInput,
+  Dimensions,
 } from "react-native";
+//estilizar os elementos e então chamar por meio de style = {styles."id da estilização"}
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    fontSize: 9,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "90%",
+  },
+  imagem: {
+    width: 200,
+    height: 250,
+    marginLeft: 30,
+  },
+  coluna: {
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "#777777",
+    height: "99%",
+  },
+});
 
 const EuDesc = () => {
   return (
-    <View style={styles.Container}>
+    <View style={styles.container}>
       <Image
-        height={300}
+        style={styles.imagem}
         source={require("../../assets/SelfieFelipeGarcia.png")}
       />
+      <view style={styles.coluna}>
+        <h1>Meu nome é Felipe Garcia Buttinger</h1>
 
-      <h1>Meu nome é Felipe Garcia Buttinger</h1>
-
-      <h1>Tenho 17 anos e curso o TDS</h1>
+        <h1>
+          Tenho 17 anos e curso o TDS no <a>Senac</a>
+        </h1>
+      </view>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  Container: {
-    padding: 5,
-    borderColor: "#f1f1f1",
-    backgroundColor: "#CDEAC0",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default EuDesc;

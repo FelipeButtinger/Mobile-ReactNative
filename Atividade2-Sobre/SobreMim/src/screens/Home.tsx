@@ -1,7 +1,8 @@
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import EuDesc from "../components/Eu";
+import Desc from "../components/Descricao";
 
 const Home = () => {
   // Lógica
@@ -9,19 +10,17 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <EuDesc />
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Desc />
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#252525",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  container: {},
   title: {
-    color: "#010001",
+    color: "#ffffff",
     fontSize: 34,
     marginBottom: 8,
   },
