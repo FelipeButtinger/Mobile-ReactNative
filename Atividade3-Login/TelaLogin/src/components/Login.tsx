@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Platform,
   Alert,
   TextInput,
   TouchableOpacity,
@@ -8,6 +9,26 @@ import {
   StyleSheet,
 } from "react-native";
 import { useFonts, Inter_400Regular } from "@expo-google-fonts/inter";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+interface IStorage {
+  username: string;
+  password: string;
+}
+
+const storeData = async (value: IStorage) => {
+  const jsonValue = JSON.stringify(value);
+
+  if (Platform.OS !== "web") {
+    try {
+      await AsyncStorage.setItem("@hooks-userInfo", jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  } else {
+    localStorage.setItem("@hooks-userInfo", jsonValue);
+  }
+};
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -81,3 +102,4 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
+storeData;
