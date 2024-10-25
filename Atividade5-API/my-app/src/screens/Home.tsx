@@ -10,7 +10,6 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Entrada />
-      <Banner />
     </SafeAreaView>
   );
 };
