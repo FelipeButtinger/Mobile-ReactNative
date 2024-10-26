@@ -1,13 +1,70 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ActivityIndicator,
+  Button,
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { useCartContext } from "../contexts/CartContext"; // Importe o contexto
+
+interface Rating {
+  rate: number;
+  count: number;
+}
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: Rating;
+}
 
 const ProductDetails = ({ route }: { route: any }) => {
-  const { id } = route.params; // Recebe o produto passado pela navegação
+  const { id } = route.params;
+  const baseUrl = "https://fakestoreapi.com/products/";
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { addProduct } = useCartContext(); // Use o contexto do carrinho
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await fetch(`${baseUrl}${id}`);
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductDetails();
+  }, [id]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
+  if (!product) {
+    return <Text>Produto não encontrado.</Text>;
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.price}>{id}</Text>
-      {/* Aqui você pode adicionar mais informações do produto, se necessário */}
+      <Image source={{ uri: product.image }} style={styles.image} />
+      <Text style={styles.title}>{product.title}</Text>
+      <Text style={styles.price}>${product.price}</Text>
+      <Text>{product.description}</Text>
+      <Button
+        title="Adicionar ao Carrinho"
+        onPress={() => addProduct(product)}
+      />
     </View>
   );
 };
@@ -19,6 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#fff",
+    alignItems: "center",
   },
   image: {
     width: "100%",
