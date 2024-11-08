@@ -7,7 +7,7 @@ import {
   Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useCartContext } from "../contexts/CartContext"; // Importe o contexto
+import { useCartContext } from "../contexts/CartContext";
 
 interface Rating {
   rate: number;
@@ -29,7 +29,7 @@ const ProductDetails = ({ route }: { route: any }) => {
   const baseUrl = "https://fakestoreapi.com/products/";
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  const { addProduct } = useCartContext(); // Use o contexto do carrinho
+  const { addProduct } = useCartContext();
 
   useEffect(() => {
     const fetchProductDetails = async () => {

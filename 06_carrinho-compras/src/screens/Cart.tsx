@@ -1,31 +1,37 @@
 import { StyleSheet, Text, View, FlatList, Button, Image } from "react-native";
 import React, { useEffect } from "react";
-import { useCartContext } from "../contexts/CartContext"; // Importe o contexto
-import { ICartItem } from "../types/Product"; // Importe o tipo do item do carrinho
-import { useNavigation } from "@react-navigation/native"; // Importe useNavigation
+import { useCartContext } from "../contexts/CartContext";
+import { ICartItem } from "../types/Product";
+import { useNavigation } from "@react-navigation/native";
 
 const Cart = () => {
-  const { cart, getCart, removeProduct } = useCartContext(); // Use o contexto do carrinho
-  const navigation = useNavigation(); // Obtenha a instância de navegação
+  const { cart, getCart, removeProduct } = useCartContext();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    getCart(); // Carrega o carrinho quando o componente é montado
+    getCart();
   }, []);
 
   // Calcular o valor total do carrinho
-  const totalCartValue = cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+  const totalCartValue = cart.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0
+  );
 
   const renderItem = ({ item }: { item: ICartItem }) => {
-    const itemTotal = item.product.price * item.quantity; // Calcule o total para o item
+    const itemTotal = item.product.price * item.quantity;
     return (
       <View style={styles.cartItem}>
         <Image source={{ uri: item.product.image }} style={styles.image} />
         <View style={styles.itemDetails}>
           <Text>{item.product.title}</Text>
           <Text>Quantidade: {item.quantity}</Text>
-          <Text>Preço: R$ {itemTotal.toFixed(2)}</Text> {/* Exiba o preço total do item */}
+          <Text>Preço: R$ {itemTotal.toFixed(2)}</Text> {}
         </View>
-        <Button title="Remover" onPress={() => removeProduct(item.product.id)} />
+        <Button
+          title="Remover"
+          onPress={() => removeProduct(item.product.id)}
+        />
       </View>
     );
   };
@@ -42,11 +48,16 @@ const Cart = () => {
             renderItem={renderItem}
             keyExtractor={(item) => item.product.id.toString()}
           />
-          <Text style={styles.total}>Total do Carrinho: R$ {totalCartValue.toFixed(2)}</Text> {/* Exiba o valor total do carrinho */}
+          <Text style={styles.total}>
+            Total do Carrinho: R$ {totalCartValue.toFixed(2)}
+          </Text>{" "}
+          {}
           <Button
             title="Finalizar Compra"
-            onPress={() => navigation.navigate("Payment", { total: totalCartValue })} // Passa o valor total como parâmetro
-            style={styles.button} // Estilos do botão
+            onPress={() =>
+              navigation.navigate("Payment", { total: totalCartValue })
+            }
+            style={styles.button}
           />
         </>
       )}
@@ -67,24 +78,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 5,
-    flexDirection: 'row', // Para alinhar a imagem e o texto na mesma linha
-    alignItems: 'center', // Centraliza verticalmente os itens
+    flexDirection: "row",
+    alignItems: "center",
   },
   itemDetails: {
     flex: 1,
-    marginLeft: 10, // Espaço entre a imagem e os detalhes do item
+    marginLeft: 10,
   },
   image: {
-    width: 50, // Defina a largura desejada
-    height: 50, // Defina a altura desejada
-    marginRight: 10, // Espaço entre a imagem e o texto
+    width: 50,
+    height: 50,
+    marginRight: 10,
   },
   total: {
-    marginTop: 20, // Espaço acima do total
-    fontWeight: 'bold', // Destaque o total
-    fontSize: 16, // Aumenta o tamanho da fonte
+    marginTop: 20,
+    fontWeight: "bold",
+    fontSize: 16,
   },
   button: {
-    marginTop: 20, // Espaço acima do botão
+    marginTop: 20,
   },
 });
