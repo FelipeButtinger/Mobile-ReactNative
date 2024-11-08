@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { showSuccess } from "../utils/Toast";
 
 const CheckoutScreen = () => {
   const [endereco, setEndereco] = useState("");
@@ -84,7 +85,7 @@ const CheckoutScreen = () => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => showSuccess("OI")}>
         <Text style={styles.buttonText}>Finalizar pedido</Text>
       </TouchableOpacity>
     </View>
@@ -147,8 +148,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cardNumber: {
-    display: "flex",
-    justifyContent: "flex-start",
     fontSize: 20,
     fontWeight: "bold",
     letterSpacing: 2,
