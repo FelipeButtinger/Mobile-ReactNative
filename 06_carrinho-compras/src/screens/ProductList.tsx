@@ -9,19 +9,29 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useCartContext } from "../contexts/CartContext";
 
 interface Product {
   id: number;
   title: string;
   price: number;
   image: string;
-} //interface para cada produto. Utilizado depois ao renderizar cada um com a function renderItem
+  description: string;
+  category: string;
+  rating: Rating;
+}
+interface Rating {
+  rate: number;
+  count: number;
+}
+//interface para cada produto. Utilizado depois ao renderizar cada um com a function renderItem
 
 const ProductList: React.FC<{ navigation: any }> = ({ navigation }) => {
   //alterei para poder fazer a transição de telas.
   const baseUrl = "https://fakestoreapi.com/products/"; //link para consumir a API
   const [products, setProducts] = useState<Product[]>([]); //constam os itens da lista da api
   const [loading, setLoading] = useState(true); //só um negócio que aprendi para gerenciar o carregamento dos dados.
+  const { addProduct } = useCartContext(); // Importando a função addProduct pra colocar no carrinho direto.
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,8 +63,14 @@ const ProductList: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.image} // Aplicando estilos à imagem
       />
       <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.price}>${item.price}</Text>
-      <Button title="Clique em Mim" onPress={() => onPressProduct(item.id)} />
+      <Text style={styles.price}>R${item.price}</Text>
+      <Button
+        title="+1 Carrinho"
+        onPress={
+          () /*mesma função utilizada no ProductDetails, envia diretamente o produto ao carrinho*/ =>
+            addProduct(item)
+        }
+      />
     </TouchableOpacity>
   );
 

@@ -59,7 +59,7 @@ const ProductDetails = ({ route }: { route: any }) => {
     <View style={styles.container}>
       <Image source={{ uri: product.image }} style={styles.image} />
       <Text style={styles.title}>{product.title}</Text>
-      <Text style={styles.price}>${product.price}</Text>
+      <Text style={styles.price}>R${product.price}</Text>
       <Text>{product.description}</Text>
       <Button
         title="Adicionar ao Carrinho"

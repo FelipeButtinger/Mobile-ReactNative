@@ -16,34 +16,33 @@ const CheckoutScreen = () => {
   const [validade, setValidade] = useState("");
   const [cvv, setCvv] = useState("");
   const [nomeCartao, setNomeCartao] = useState("");
+  //cada hook é para capturar o que o usuário e preencher o que for necessário no card.
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>PAGAMENTO E ENTREGA</Text>
 
-      <Text>Endereço de entrega:</Text>
       <TextInput
-        style={styles.input}
+        style={styles.input} //segue abaixo cada um dos inputs.
         placeholder="Endereço"
         value={endereco}
         onChangeText={setEndereco}
       />
       <View style={styles.row}>
         <TextInput
-          style={[styles.input, styles.cityInput]}
+          style={[styles.input, styles.halfInput]}
           placeholder="Cidade"
           value={cidade}
           onChangeText={setCidade}
         />
         <TextInput
-          style={[styles.input, styles.stateInput]}
+          style={[styles.input, styles.halfInput]}
           placeholder="Estado"
           value={estado}
           onChangeText={setEstado}
         />
       </View>
 
-      <Text>Dados de pagamento:</Text>
       <TextInput
         style={styles.input}
         placeholder="Número do cartão"
@@ -59,13 +58,13 @@ const CheckoutScreen = () => {
       />
       <View style={styles.row}>
         <TextInput
-          style={[styles.input, styles.validityInput]}
+          style={[styles.input, styles.halfInput]}
           placeholder="Data de validade"
           value={validade}
           onChangeText={setValidade}
         />
         <TextInput
-          style={[styles.input, styles.cvvInput]}
+          style={[styles.input, styles.halfInput]}
           placeholder="CVV"
           value={cvv}
           onChangeText={setCvv}
@@ -73,19 +72,25 @@ const CheckoutScreen = () => {
         />
       </View>
 
-      {/* Card/alterar imagem */}
-      <View style={styles.card}>
-        <Text style={styles.cardText}>VISA</Text>
-        <Text style={styles.cardNumber}>
-          {numeroCartao || "0000 0000 0000 0000"}
-        </Text>
-        <View style={styles.cardDetails}>
-          <Text>{nomeCartao || "Nome do titular"}</Text>
-          <Text>{validade || "MM/AA"}</Text>
+      <View style={styles.cardContainer}>
+        <View style={styles.card}>
+          <Text style={styles.cardText}>VISA</Text>
+          <Text style={styles.cardNumber}>
+            {numeroCartao || "0000 0000 0000 0000"}
+          </Text>
+          <View style={styles.cardDetails}>
+            <Text>{nomeCartao || "Nome do titular"}</Text>
+            <Text>{validade || "MM/AA"}</Text>
+          </View>
         </View>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => showSuccess("OI")}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          showSuccess("Pedido Finalizado, aguarde as informações de entrega")
+        } //mostra o toast(deveria)
+      >
         <Text style={styles.buttonText}>Finalizar pedido</Text>
       </TouchableOpacity>
     </View>
@@ -93,82 +98,42 @@ const CheckoutScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-    padding: 20,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
+  container: { flex: 1, backgroundColor: "#f5f5f5", padding: 20 },
+  title: { fontSize: 18, fontWeight: "bold", marginBottom: 20 },
   input: {
     backgroundColor: "#e0e0e0",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
   },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  cityInput: {
-    flex: 2,
-    marginRight: 10,
-  },
-  stateInput: {
-    flex: 1,
-  },
-  validityInput: {
-    flex: 2,
-    marginRight: 10,
-  },
-  cvvInput: {
-    flex: 1,
-  },
+  row: { flexDirection: "row", justifyContent: "space-between" },
+  halfInput: { flex: 1, marginRight: 10 },
+  cardContainer: { alignItems: "center", marginVertical: 20 },
   card: {
-    backgroundColor: "#ffffff",
-    maxWidth: 300,
+    backgroundColor: "#fff",
     padding: 20,
     borderRadius: 10,
-    marginTop: 20,
-    marginBottom: 20,
     width: "100%",
+    maxWidth: 300,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 3 },
-    shadowRadius: 5,
     elevation: 5,
   },
-  cardText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  cardNumber: {
-    fontSize: 20,
-    fontWeight: "bold",
-    letterSpacing: 2,
-    marginBottom: 10,
-  },
+  cardText: { fontSize: 16, fontWeight: "bold" },
+  cardNumber: { fontSize: 20, fontWeight: "bold", letterSpacing: 2 },
   cardDetails: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
   },
   button: {
-    backgroundColor: "#6200ee",
+    backgroundColor: "#4f98f0",
     paddingVertical: 15,
     borderRadius: 5,
     alignItems: "center",
+    width: "100%",
+    maxWidth: 300,
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
+  buttonText: { color: "#fff", fontSize: 16, fontWeight: "bold" },
 });
 
 export default CheckoutScreen;

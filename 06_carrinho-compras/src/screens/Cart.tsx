@@ -5,11 +5,11 @@ import { ICartItem } from "../types/Product";
 import { useNavigation } from "@react-navigation/native";
 
 const Cart = () => {
-  const { cart, getCart, removeProduct } = useCartContext();
+  const { cart, getCart, removeProduct } = useCartContext(); //importa as funções do cartContext para usar.
   const navigation = useNavigation();
 
   useEffect(() => {
-    getCart();
+    getCart(); //Executa uma vez para carregar os itens do carrinho
   }, []);
 
   // Calcular o valor total do carrinho
@@ -19,7 +19,8 @@ const Cart = () => {
   );
 
   const renderItem = ({ item }: { item: ICartItem }) => {
-    const itemTotal = item.product.price * item.quantity;
+    //padroniza a exibição de cada item, semelhante ao uso na product list
+    const itemTotal = item.product.price * item.quantity; //valor acumulado de cada item(quantidade*valor unico)
     return (
       <View style={styles.cartItem}>
         <Image source={{ uri: item.product.image }} style={styles.image} />
@@ -30,7 +31,7 @@ const Cart = () => {
         </View>
         <Button
           title="Remover"
-          onPress={() => removeProduct(item.product.id)}
+          onPress={() => removeProduct(item.product.id)} //utiliza a função do cartContext para remover do carrinho.
         />
       </View>
     );
@@ -44,9 +45,9 @@ const Cart = () => {
       ) : (
         <>
           <FlatList
-            data={cart}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.product.id.toString()}
+            data={cart} //flatlist é para a rolagem vertical
+            renderItem={renderItem} //renderiza cada um dos itens
+            keyExtractor={(item) => item.product.id.toString()} //define uma chave única para cada item
           />
           <Text style={styles.total}>
             Total do Carrinho: R$ {totalCartValue.toFixed(2)}
@@ -54,8 +55,8 @@ const Cart = () => {
           {}
           <Button
             title="Finalizar Compra"
-            onPress={() =>
-              navigation.navigate("Payment", { total: totalCartValue })
+            onPress={
+              () => navigation.navigate("Payment", { total: totalCartValue }) //troca para a tela de pagamento, apresenta erro que não compreendi, mas funciona sem problems, então deixei assim por enquanto.
             }
             style={styles.button}
           />
