@@ -81,10 +81,14 @@ const ProductList: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList //flatlist é para a rolagem vertical
-        data={products} //recebe a array criada antes, que contém os itens
-        renderItem={renderItem} //utiliza a padronização de cards
+      <FlatList
+        data={products}
+        renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={{
+          alignItems: "center", // Centraliza os itens da lista
+          paddingBottom: 20,
+        }}
       />
     </View>
   );
@@ -97,32 +101,33 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: "#fff",
-    alignItems: "center",
   },
   card: {
-    padding: 20,
-    marginVertical: 10,
+    margin: 10,
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 5,
     backgroundColor: "#f9f9f9",
-    width: "50%",
-
+    minWidth: 500,
+    height: 320,
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
   },
   title: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
+    textAlign: "center",
+    flexShrink: 1, // Evita que o texto quebre o layout ao ser longo
   },
   price: {
-    fontSize: 16,
+    fontSize: 14,
     color: "#888",
+    marginVertical: 5,
   },
-  flexContainer: {},
   image: {
-    width: "40%",
-    height: 250,
-    marginBottom: 10,
-    resizeMode: "contain", //Necessário, senão imagem fica cortada.
+    width: "80%", // Largura fixa para as imagens
+    height: 150, // Altura fixa para manter a uniformidade
+    resizeMode: "contain", // Ajusta a imagem sem cortá-la
   },
 });
